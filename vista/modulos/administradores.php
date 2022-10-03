@@ -9,52 +9,47 @@
         </ol>
     </section>
     <section class="content">
-
         <div class="box">
-            <div class="box-header with-border" style="display: flex;">
-                <div style="width: 30%;">
+            <!-- header -->
+            <div class="box-header">
+                <div>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAgregarAdmin">
-                        Agregar
+                        Agregar nuevo administrador
                     </button>
                 </div>
-
-                <div style="width: 70%; display: flex; justify-content: flex-end;">
-                    <div>
-                        <form action="post">
-                            <div style="display: flex;">
-                                <input type="text" class="form-control col-xs-5" name="buscarNombre" placeholder="Ingrese un nombre" required>
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                            </div>
-                        </form>
+            </div>
+            <!-- body -->
+            <div class="box-body">
+                <div class="dataTables_wrapper form-inline dt-bootstrap">
+                    <br>
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-striped dataTable tablas" role="grid">
+                            <thead>
+                                <tr role="row">
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Usuario</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <div style="display: flex; justify-content: space-around;">
+                                        <button class="btn btn-warning btn-sm">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
-            <div class="box-body">
-                <table class="table table-bordered table-striped tablas">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Usuario</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <td width=10%></td>
-                        <td></td>
-                        <td></td>
-                        <td width=28%>
-                            <div>
-                                <button class="btn btn-warning">
-                                    <i class="fa fa-pencil"></i>
-                                </button>
-                                <button class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tbody>
-                </table>
             </div>
         </div>
     </section>
