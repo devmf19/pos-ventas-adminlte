@@ -25,8 +25,8 @@ session_start();
     <!--  style -->
     <link rel="stylesheet" href="vista/dist/css/styles.css">
     <!-- data table -->
-    <link rel="stylesheet" href="vista/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" href="vista/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="vista/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="vista/bower_components/datatables.net-bs/css/datatables.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,10 +52,11 @@ session_start();
     <!-- AdminLTE for demo purposes -->
     <script src="vista/dist/js/demo.js"></script>
     <!-- DataTables -->
-    <script src="vista/plugins/datatables/jquery.dataTables.js"></script>
-    <script src="vista/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
-    <script src="vista/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-    <script src="vista/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="vista/bower_components/datatables.net/jquery.dataTables.min.js"></script>
+    <script src="vista/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="vista/bower_components/datatables.net-bs/js/datatables.min.js"></script>
+    <!-- sweet alert 2 -->
+    <script src="vista/plugins/sweetalert/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini login-page">
