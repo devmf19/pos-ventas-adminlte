@@ -55,6 +55,8 @@ session_start();
     <script src="vista/bower_components/datatables.net/jquery.dataTables.min.js"></script>
     <script src="vista/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
     <script src="vista/bower_components/datatables.net-bs/js/datatables.min.js"></script>
+    <!-- sweet alert 2 -->
+    <script src="vista/plugins/sweetalert/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini login-page">
