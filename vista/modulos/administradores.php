@@ -11,10 +11,11 @@
     <section class="content">
         <div class="box collapsed-box">
             <div class="box-header" style="height: 45px ;">
+                <h3 class="box-title">Nuevo administrador</h3>
                 <div class="box-tools pull-right">
                     <button type="button" class="btn btn-primary" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                        Agregar nuevo administrador
-                    </button>
+                        <!-- Agregar nuevo administrador -->
+                        <i class="fa fa-plus"></i>
                 </div>
             </div>
             <div class="box-body">
@@ -24,14 +25,14 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingresar nombre" required>
+                                <input type="text" class="form-control input-lg" name="nuevoNombre" placeholder="Ingrese un nombre" required>
                             </div>
                         </div>
                         <!-- usuario -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingresar un nombre de usuario" required>
+                                <input type="text" class="form-control input-lg" name="nuevoUsuario" placeholder="Ingrese un nombre de usuario" required>
                             </div>
                         </div>
                         <!-- contraseña -->
@@ -51,8 +52,8 @@
                     </div>
                     <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Registrar administrador</button>
                     <?php
-                        $crearUsuario = new ControladorAdministradores();
-                        $crearUsuario->guardarUsuario();
+                    $crearUsuario = new ControladorAdministradores();
+                    $crearUsuario->guardarUsuario();
                     ?>
                 </form>
             </div>
@@ -73,19 +74,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <div style="display: flex; justify-content: space-around;">
-                                        <button class="btn btn-warning btn-sm">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-danger btn-sm">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </div>
-                                </td>
+                                <?php
+                                $mostrarTodos = new ControladorAdministradores();
+                                $mostrarTodos->mostrarTodos();
+                                ?>
                             </tbody>
                         </table>
                     </div>

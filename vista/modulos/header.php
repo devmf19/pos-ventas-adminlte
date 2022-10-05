@@ -25,13 +25,16 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="vista/img/plantilla/usuario.png" alt="usuario" class="user-image">
-                        <span class="hidden-xs">Usuario Aministrador</span>
+                        <span class="hidden-xs"><?php echo $_SESSION['nombre']; ?></span>
                     </a>
                     <!-- dropdown-toggle -->
                     <ul class="dropdown-menu">
                         <li class="user-body">
+                            <div class="pull-left">
+                                <h4><?php echo $_SESSION['usuario']; ?></h4>
+                            </div>
                             <div class="pull-right">
-                                <a href="salir" class="btn btn-default btn-flat">Salir</a>
+                                <a href="salir" class="btn btn-default btn-flat">Salir del sistema</a>
                             </div>
                         </li>
                     </ul>

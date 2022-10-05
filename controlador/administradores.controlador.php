@@ -2,17 +2,27 @@
 
 class ControladorAdministradores
 {
-    // solicitud para iniciar sesion
+    //metodo para iniciar sesion
     static public function strIngresoUsuario()
     {
         if (isset($_POST['usuario']) && isset($_POST['contrasena'])) {
-            $usuario = $_POST['usuario'];
-            $contrasena = $_POST['contrasena'];
+            // eccriptación de contraseña
+            $saltSHA256 = '$5$rounds=5000$usesomesillystringforsalt$';
+            $contrasena = crypt($_POST['contrasena'], $saltSHA256);
 
-            $rta = Administrador::mostrarUsuarios($usuario, $contrasena);
+            $usuario = array(
+                "usuario" => $_POST["usuario"],
+                "contrasena" => $contrasena
+            );
+
+            $rta = Administrador::iniciarSesion($usuario);
 
             if ($rta !== false) {
                 $_SESSION['iniciarSesion'] = "ok";
+                $_SESSION['id'] = $rta['id'];
+                $_SESSION['nombre'] = $rta['nombre'];
+                $_SESSION['usuario'] = $rta['usuario'];
+
                 echo '<script>
                         window.location = "inicio";
                     </script>';
@@ -23,7 +33,7 @@ class ControladorAdministradores
         }
     }
 
-    // solicitud para guardar registrar un nuevo administrador en la base de datos
+    //metodo para guardar registrar un nuevo administrador en la base de datos
     static public function guardarUsuario()
     {
         if (
@@ -44,23 +54,61 @@ class ControladorAdministradores
                     // echo ControladorAdministradores::mensajeExito();
                     echo ControladorAdministradores::mensajeError("Las contraseñas no coinciden");
                 } else {
-                    $usuario = $_POST['nuevoUsuario'];
-                    $rta = Administrador::consultarUsuario($usuario);
-
+                    $rta = Administrador::consultarUsuario($_POST['nuevoUsuario']);
                     // si el usuario existe en la base de datos
                     if ($rta != null) {
                         echo ControladorAdministradores::mensajeError("El usuario que intenta registrar ya existe en la base de datos, por favor cree un nuevo usuario");
                     } else {
+                        // eccriptación de contraseña
+                        $saltSHA256 = '$5$rounds=5000$usesomesillystringforsalt$';
+                        $contrasena = crypt($_POST['nuevaContrasena'], $saltSHA256);
                         // se toman los datos y se almacenan en la base de datos
-                        $nombre = $_POST['nuevoNombre'];
-                        $contrasena = $_POST['nuevaContrasena'];
-                        $rta = Administrador::registrarUsuario($nombre, $usuario, $contrasena);
-                        echo ControladorAdministradores::mensajeExito();
+                        $datos = array(
+                            "nombre" => $_POST['nuevoNombre'],
+                            "usuario" => $_POST['nuevoUsuario'],
+                            "contrasena" => $contrasena
+                        );
+                        $rta = Administrador::registrarUsuario($datos);
+                        if ($rta == "ok") {
+                            echo ControladorAdministradores::mensajeExito();
+                        }
                     }
                 }
             } else {
                 // usuario o contraseña contienen caracteres especiales
                 echo ControladorAdministradores::mensajeError("No puede usar caracteres especiales para el usuario o la contraseña");
+            }
+        }
+    }
+
+    // metodo que muestra todos los usuarios de la base de datos en la tabla
+    static public function mostrarTodos()
+    {
+        $rta = Administrador::mostrarTodos();
+        if ($rta != false) {
+            $i = 0;
+
+            // se recorren todos los elemeentos del array obtenido de la base de datos y que contiene todos los usuarios
+            foreach ($rta as $usuario) {
+                $i++;
+                // por cada usuario del vector se inserta una fila en la tabla que contenga su información
+                echo '
+                    <tr role="row">
+                        <td>' . $i . '</td>
+                        <td>' . $usuario["nombre"] . '</td>
+                        <td>' . $usuario["usuario"] . '</td>
+                        <td>
+                            <div style="display: flex; justify-content: space-around;">
+                                <button class="btn btn-warning btn-sm">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                ';
             }
         }
     }
@@ -85,7 +133,7 @@ class ControladorAdministradores
         Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: "'.$mensaje.'"
+            text: "' . $mensaje . '"
           }).then((result)=>{
                         if(result.value){
                             window.location = "administradores"
