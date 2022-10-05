@@ -3,15 +3,18 @@ require_once 'conexion.php';
 
 class Administrador
 {
-    // mostrarUsuarios desde la base de datos
-     static public function mostrarUsuarios($usuario, $contrasena)
+    // usuario y contraseña son correctos
+    static public function iniciarSesion($usuario)
     {
         $stmt = Conexion::conectar()->prepare("SELECT * FROM administrador WHERE usuario = ? and contrasena = ?");
-        $stmt->bindParam(1, $usuario);
-        $stmt->bindParam(2, $contrasena);
+        $stmt->bindParam(1, $usuario["usuario"]);
+        $stmt->bindParam(2, $usuario["contrasena"]);
 
-        $stmt->execute();
-        return $stmt -> fetch();
+        if ($stmt->execute()) {
+            return $stmt->fetch();
+        } else {
+            return false;
+        }
     }
 
     // consultar usuario existente
@@ -20,16 +23,37 @@ class Administrador
         $stmt = Conexion::conectar()->prepare("SELECT * FROM administrador WHERE usuario = ?");
         $stmt->bindParam(1, $usuario);
 
-        $stmt->execute();
-        return $stmt -> fetch();
+        if ($stmt->execute()) {
+            return $stmt->fetch();
+        } else {
+            return false;
+        }
     }
 
-    static public function registrarUsuario($nombre, $usuario, $contrasena){
-        $stmt = Conexion::conectar()->prepare("INSERT INTO administrador (nombre, usuario, contrasena) VALUES (?, ?, ?)");
-        $stmt->bindParam(1, $nombre);
-        $stmt->bindParam(2, $usuario);
-        $stmt->bindParam(3, $contrasena);
+    // mostrar todos los usuarios
+    static public function mostrarTodos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM administrador");
 
-        $stmt->execute();
+        if ($stmt->execute()) {
+            return $stmt;
+        } else {
+            return false;
+        }
+    }
+    
+    // registrar un usuario nuevo
+    static public function registrarUsuario($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO administrador (nombre, usuario, contrasena) VALUES (?, ?, ?)");
+        $stmt->bindParam(1, $datos["nombre"]);
+        $stmt->bindParam(2, $datos["usuario"]);
+        $stmt->bindParam(3, $datos["contrasena"]);
+
+        if ($stmt->execute()) {
+            return "ok";
+        } else {
+            return "error";
+        }
     }
 }
